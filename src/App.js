@@ -11,7 +11,7 @@ function App(props) {
       currentItems.push(props.newItem);
       setCart(currentItems);
     }
-  }, [props.newItem]);
+  }, [props.newItem, cart]);
 
   function handleCartVisibility() {
     setShow(!show);
