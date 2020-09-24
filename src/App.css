@@ -1,38 +1,50 @@
-.App {
-  text-align: center;
+.shopping-cart {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  text-align: left;
 }
 
-.App-logo {
-  height: 40vmin;
+.shopping-cart .cart-box {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 20px;
+  min-width: 400px;
+  opacity: 0;
+  transform: translateY(-40px);
+  transition: all 0.2s ease-out;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.shopping-cart .cart-box.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.shopping-cart .cart-item:not(:last-child) {
+  margin-bottom: 40px;
+}
+
+.shopping-cart h3 {
+  margin: 0;
+}
+
+.shopping-cart p {
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.shopping-cart .cart-item {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.shopping-cart .cart-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 10px;
 }
