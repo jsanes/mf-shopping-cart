@@ -23,10 +23,14 @@ function App(props) {
 
   useEffect(() => {
     const currentItems = [...cart];
-    if (props.newItem.name) {
+    if (
+      props.newItem.name &&
+      !currentItems.find((item) => item.name === props.newItem.name)
+    ) {
       currentItems.push(props.newItem);
       setCart(currentItems);
     }
+
     // eslint-disable-next-line
   }, [props.newItem]);
 
@@ -36,6 +40,8 @@ function App(props) {
 
   function removeFromCart(itemName) {
     const currentItems = [...cart];
+
+    console.log(currentItems);
 
     const newItems = currentItems.filter((item) => item.name !== itemName);
 
@@ -51,7 +57,7 @@ function App(props) {
           <p>{item.description}</p>
           <strong>
             {item.price ? '$' : ''}
-            {item.price}
+            {formatNumber(item.price)}
           </strong>
         </div>
         <button
@@ -71,6 +77,10 @@ function App(props) {
       }),
       { price: 0 }
     ).price;
+  }
+
+  function formatNumber(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }
 
   function preventClickThrough(event) {
@@ -94,7 +104,7 @@ function App(props) {
           <h2>The cart is empty. Click on Add to Cart to start buying!</h2>
         ) : null}
         {renderCartItems()}
-        <strong>Total: ${getTotalAmount()}</strong>
+        <strong>Total: ${formatNumber(getTotalAmount())}</strong>
       </div>
     </div>
   );
