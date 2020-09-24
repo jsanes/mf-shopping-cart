@@ -11,7 +11,8 @@ function App(props) {
       currentItems.push(props.newItem);
       setCart(currentItems);
     }
-  }, [props.newItem, cart]);
+    // eslint-disable-next-line
+  }, [props.newItem]);
 
   function handleCartVisibility() {
     setShow(!show);
