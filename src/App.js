@@ -42,6 +42,8 @@ const App = React.forwardRef((props, ref) => {
   }
 
   function removeFromCart(itemName) {
+    console.log('props', props);
+    props.storeRef.current.onItemRemoved(itemName);
     const currentItems = [...cart];
 
     const newItems = currentItems.filter((item) => item.name !== itemName);
