@@ -1,11 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useImperativeHandle } from 'react';
 import './App.css';
 import { ReactComponent as CartIcon } from './cart.svg';
 import { ReactComponent as DeleteIcon } from './delete.svg';
 
-function App(props) {
+const App = React.forwardRef((props, ref) => {
   const [cart, setCart] = useState([]);
   const [show, setShow] = useState(false);
+
+  useImperativeHandle(ref, () => ({
+    addItem,
+  }));
+
+  function addItem(newItem) {
+    const currentItems = [...cart];
+
+    if (
+      newItem.name &&
+      !currentItems.find((item) => item.name === newItem.name)
+    ) {
+      currentItems.push(newItem);
+      setCart(currentItems);
+    }
+  }
 
   useEffect(() => {
     document.addEventListener('click', hideCart);
@@ -21,27 +37,12 @@ function App(props) {
     }
   }
 
-  useEffect(() => {
-    const currentItems = [...cart];
-    if (
-      props.newItem.name &&
-      !currentItems.find((item) => item.name === props.newItem.name)
-    ) {
-      currentItems.push(props.newItem);
-      setCart(currentItems);
-    }
-
-    // eslint-disable-next-line
-  }, [props.newItem]);
-
   function handleCartVisibility() {
     setShow(!show);
   }
 
   function removeFromCart(itemName) {
     const currentItems = [...cart];
-
-    console.log(currentItems);
 
     const newItems = currentItems.filter((item) => item.name !== itemName);
 
@@ -108,6 +109,8 @@ function App(props) {
       </div>
     </div>
   );
-}
+});
+
+App.displayName = 'App';
 
 export default App;
